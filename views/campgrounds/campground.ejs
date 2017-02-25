@@ -1,0 +1,38 @@
+<% include ../partials/header.ejs %>
+
+
+
+<div class = "container">
+    <header class = "jumbotron">
+        <div class="container">
+            <h1>This is All My camp!</h1>
+            <a href="/createcamp" class="btn btn-lg btn-primary">add a new Camp Here!</a>
+        </div>
+       
+    </header>
+    <div class="row text-center">
+        <% campground.forEach(function(camp){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= camp.image %>"> </img>
+                    <div class="caption">
+                        <h4><%= camp.name %> </h4>
+                    </div>
+                    <p>
+                        <%= camp.description.substring(0,100) %>
+                        <% if(camp.description.length > 100) { %>
+                        ...
+                        <% } %>
+                        <a href = "/campground/<%= camp._id %>">More Info</a>
+                    </p>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    
+    
+</div>
+
+
+
+<% include ../partials/footer.ejs %>
