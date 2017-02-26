@@ -18,7 +18,7 @@ router.post("/register", function(req,res){
         }
         passport.authenticate("local")(req,res,function(){
             req.flash("success", "Account Created")
-            res.redirect("/campground");
+            res.redirect("back");
         });
     })
 })
@@ -29,8 +29,10 @@ router.get("/login",function(req,res){
 
 router.post("/login", passport.authenticate("local",
     {
-        successRedirect: "/campground",
-        failureRedirect: "/login"
+        successRedirect: "back",
+        failureRedirect: "back",
+        failureFlash: true,
+        successFlash: 'Welcome home'
     }), function(req,res){
 });
 

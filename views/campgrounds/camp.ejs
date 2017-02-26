@@ -1,10 +1,22 @@
 <% include ../partials/header.ejs %>
 
-<div class = "container">
+<script>
     
+    function getComment(id, word) {
+        var str = "/campground/<%= campground._id %>/comments/" + id + "?_method=PUT";
+        $("#edit-c").attr("action", str);
+        $("#comment-value").attr("value", word);
+        $("#comment-edit").modal();
+        
+    } 
+    
+    
+</script>
+
+<div class = "container">
     <div class="row">
         <div class="col-md-3">
-            <p class="lead">YelpCamp</p>
+            <p class="lead">Collections</p>
             <li class="list-group-item active">info1</li>
             <li class="list-group-item">info2</li>
             <li class="list-group-item">info3</li>
@@ -34,9 +46,9 @@
                 </div>
             </div>
             <div class="well">
-                <div class="text-right">
-                    <a class="btn btn-success" href="/campground/<%= campground._id %>/comments/new">Add a Comment</a>
-                </div>
+                <!--<div class="text-right">-->
+                <!--    <a class="btn btn-success" href="/campground/<%= campground._id %>/comments/new">Add a Comment</a>-->
+                <!--</div>-->
                 <% campground.comments.forEach(function(comment){ %>
                      <div class="row">
                          <div class="col-md-12">
@@ -44,9 +56,9 @@
                              <span class="pull-right"> <%= comment.date %></span>
                              <p> <%= comment.content %></p>
                             <% if(currentUser && comment.author.id.equals(currentUser._id)){ %> 
-                                <a class="btn btn-warning btn-xs" href="/campground/<%= campground._id %>/comments/<%= comment._id %>/edit">
+                                <button class="btn btn-warning btn-xs" data-toggle="modal" onClick="getComment('<%=comment._id%>', '<%=comment.content%>')">
                                     Edit
-                                </a>
+                                </button>
                                 <form id="delete-form" action="/campground/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
                                     <button class="btn btn-danger btn-xs">delete</button>
                                 </form>
@@ -60,14 +72,24 @@
             <hr>
             <div class="well">
                 <div class="row">
-                    <div class="col-md-12" style="margin: 25px auto;">
+                    <div class="col-md-12">
                         <form action = "/campground/<%= campground._id %>/comments" method="POST">
-                            <div class="form-group">
-                                <textarea class="form-control" style="resize: none; height: 175px;" type = "text" name="comment[content]" maxlength=200 placeholder="leave a comment here"></textarea>
+                            <% if(!currentUser){ %>
+                            <div class="form-group" disabled="disabled">
+                                <textarea class="form-control" disabled="disabled" style="resize: none; height: 175px;" type = "text" name="comment[content]" maxlength=200 placeholder="login to leave a comment ^_^"></textarea>
                             </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-block" style="float: right; width: 10%;" >Submit</button>
+                             <div class="text-right">
+                                <button class="btn btn-success" disabled="disabled" style="float: right; margin: 15px auto;" >Add a Comment</button>
                             </div>
+                             <% } else { %>
+                            <div class="form-group">
+                                <textarea class="form-control" style="resize: none; height: 175px;" type = "text" name="comment[content]" maxlength=200 placeholder="leave a comment here, <%= currentUser.username %>"></textarea>
+                            </div>
+                             <div class="text-right">
+                                <button class="btn btn-success" style="float: right; margin: 15px auto;" >Add a Comment</button>
+                            </div>
+                            <% } %>
+                            
                         </form>
                     </div>
                 </div>
@@ -75,5 +97,33 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="comment-edit" tabindex="-1" role="dialog" aria-labelledby="comment-edit-head" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="comment-edit-head">Welcome to join us</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="login-triangle" style="width: 50%; margin: 25px auto;">
+                            <form id="edit-c" class="login-container" action = "" method="POST">
+                                <div class="form-group">
+                                     <label for="comment[content]">Comment</label>
+                                    <input id="comment-value" class="form-control" type = "text" style="width: 100%" name="comment[content]" value="">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block">Submit</button>
+                                </div>
+                            </form>
+                            <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        
 
 <% include ../partials/footer.ejs %>

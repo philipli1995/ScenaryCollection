@@ -1,10 +1,44 @@
 
 <% include partials/header.ejs %>
-<h1>This is a login page!</h1>
 
-<form action="/login" method="POST">
-    <input name="username" type="text" placeholder="username">
-    <input name="password" type="password" placeholder="password">
-    <button>login</button>
-</form>
+<!--<div class="container">-->
+<!--    <div class="login">-->
+<!--      <div class="login-triangle"></div>-->
+      
+<!--      <h2 class="login-header">Log in</h2>-->
+    
+<!--      <form class="login-container" action="/login" method="POST">-->
+<!--        <p><span class="glyphicon glyphicon-search" aria-hidden="true"></span> <input name="username" type="text" placeholder="Username"></p>-->
+<!--        <p><input name="password" type="password" placeholder="Password"></p>-->
+<!--        <button>login</button>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Welcome</h1>
+        <div class="login-triangle" style="width: 30%; margin: 25px auto;">
+            <form class="login-container" action="/login" method="POST">
+                <div class="form-group">
+                     <label for="username">Username</label>
+                    <input name="username" type="text" placeholder="username" style="width: 100%">
+                </div>
+                <div class="form-group">
+                    <label for="Password">Password</label>
+                    <input name="password" type="password" placeholder="password" style="width: 100%">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary btn-block" type="submit">
+                </div>
+            </form>
+            <a href = "/register" style="float: right">Register</a>
+    </div>
+</div>
+
+<!--<form action="/login" method="POST">-->
+<!--    <input name="username" type="text" placeholder="username">-->
+<!--    <input name="password" type="password" placeholder="password">-->
+<!--    <button>login</button>-->
+<!--</form>-->
 <% include partials/footer.ejs %>

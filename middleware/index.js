@@ -12,7 +12,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next) {
             else if(foundCom.author.id.equals(req.user._id)){
                 next();
             } else {
-                req.flash("error", "You are not the comment creator");
+                req.flash("error", "Only comment creator can edit");
                 res.redirect("back");
             }
         });
@@ -33,7 +33,7 @@ middlewareObj.checkCampgroundOwnership = function(req, res, next) {
             else if(foundCamp.author.id.equals(req.user._id)){
                 next();
             } else {
-                req.flash("error", "You are not the campground creator");
+                req.flash("error", "Only campground host can edit");
                 res.redirect("back");
             }
         });
@@ -49,7 +49,7 @@ middlewareObj.isLoggedIn = function(req, res, next) {
         return next();
     }
     req.flash("error", "Please login first");
-    res.redirect("/login");
+    res.redirect("/campground");
 }
 
 
