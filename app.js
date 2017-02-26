@@ -40,9 +40,9 @@ app.use(function(req,res,next){
     next();
 });
 
- mongoose.connect("mongodb://localhost/yelp_camp");
+ //mongoose.connect("mongodb://localhost/yelp_camp");
  
- //mongoose.connect("mongodb://user:19950102@ds161029.mlab.com:61029/web-work");
+ mongoose.connect("mongodb://user:19950102@ds161029.mlab.com:61029/web-work");
  
  //  mongodb://user:19950102@ds161029.mlab.com:61029/web-work
 
