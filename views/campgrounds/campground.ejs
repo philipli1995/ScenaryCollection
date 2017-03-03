@@ -12,19 +12,25 @@
     </header>
     <div class="row text-center">
         <% campground.forEach(function(camp){ %>
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="<%= camp.image %>"> </img>
+            <div class="col-md-3 col-sm-6 ">
+                <div class="thumbnail inner">
+                    
+                        <img alt="" src="<%= camp.image %>" class="img-thumbnail"> </img>
+
                     <div class="caption">
                         <h4><%= camp.name %> </h4>
-                    </div>
-                    <p>
-                        <%= camp.description.substring(0,100) %>
-                        <% if(camp.description.length > 100) { %>
-                        ...
+                        <p style="height:60px;">
+                        <% if(camp.description && camp.description.length > 100) { %>
+                        <%= camp.description.substring(0,106) %>...
+                        <% } else {%>
+                        <%= camp.description %> 
                         <% } %>
-                        <a href = "/campground/<%= camp._id %>">More Info</a>
                     </p>
+                    <hr>
+                    <a class="btn btn-primary" href = "/campground/<%= camp._id %>">More Info</a>
+                    </div>
+                    
+                    
                 </div>
             </div>
         <% }) %>
